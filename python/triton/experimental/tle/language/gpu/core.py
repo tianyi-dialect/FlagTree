@@ -5,6 +5,7 @@ from typing import Optional, Sequence
 from enum import Enum
 from . import types as tle
 from .mthreads import copy as mthreads_copy
+from ...._tle_capabilities import check_supported
 from triton.compiler.code_generator import flatten_values_to_ir, unflatten_ir_values
 
 from triton.language.core import (
@@ -107,6 +108,7 @@ def warp_specialize(functions_and_args, worker_num_warps, worker_num_regs, _sema
     requested register counts provided by ``worker_num_warps`` and
     ``worker_num_regs``.
     """
+    check_supported("tle.warp_specialize", semantic=_semantic)
     if _generator is None:
         raise ValueError("warp_specialize requires a Triton code generator")
     functions_and_args = tl._unwrap_if_constexpr(functions_and_args)
@@ -415,6 +417,7 @@ def copy(
         offsets: Sequence[constexpr | tensor],
         _semantic=None,
     ) -> None:
+        check_supported("tle.copy.tma", semantic=_semantic)
         # Parameter validation
         valid_types = (tle.buffered_tensor, tl.tensor_descriptor)
 

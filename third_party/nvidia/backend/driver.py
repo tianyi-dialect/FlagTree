@@ -861,6 +861,7 @@ class CudaDriver(GPUDriver):
 
     @staticmethod
     def is_active():
+        return False
         try:
             import torch
             return torch.cuda.is_available() and (torch.version.hip is None)
