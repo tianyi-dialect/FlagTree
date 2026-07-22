@@ -502,13 +502,6 @@ class nvidia_knobs(base_knobs):
     libcuda_path: env_opt_str = env_opt_str("TRITON_LIBCUDA_PATH")
 
 
-class ppu_knobs(base_knobs):
-    disable_ppu_llc_opt: env_bool = env_bool("DISABLE_PPU_LLC_OPT")
-    ppu_llc_options: env_opt_str = env_opt_str("PPU_LLC_OPTIONS")
-    dump_compile_log: env_bool = env_bool("TRITON_DUMP_COMPILE_LOG")
-    libdevice_path: env_opt_str = env_opt_str("TRITON_LIBDEVICE_PATH")
-
-
 class amd_knobs(base_knobs):
     use_buffer_ops: env_bool = env_bool("AMDGCN_USE_BUFFER_OPS", True)
     # Note: This requires use_buffer_ops be true to have any effect
@@ -548,6 +541,14 @@ class hcu_knobs(base_knobs):
     scalarize_packed_fops: env_bool = env_bool("AMDGCN_SCALARIZE_PACKED_FOPS")
 
 
+# flagtree ppu
+class ppu_knobs(base_knobs):
+    disable_ppu_llc_opt: env_bool = env_bool("DISABLE_PPU_LLC_OPT")
+    ppu_llc_options: env_opt_str = env_opt_str("PPU_LLC_OPTIONS")
+    dump_compile_log: env_bool = env_bool("TRITON_DUMP_COMPILE_LOG")
+    libdevice_path: env_opt_str = env_opt_str("TRITON_LIBDEVICE_PATH")
+
+
 class proton_knobs(base_knobs):
     disable: env_bool = env_bool("TRITON_PROTON_DISABLE", False)
     cupti_lib_dir: env_str = env_str(
@@ -564,9 +565,9 @@ autotuning = autotuning_knobs()
 runtime = runtime_knobs()
 language = language_knobs()
 nvidia = nvidia_knobs()
-ppu = ppu_knobs()
 amd = amd_knobs()
 hcu = hcu_knobs()
+ppu = ppu_knobs()
 proton = proton_knobs()
 
 
